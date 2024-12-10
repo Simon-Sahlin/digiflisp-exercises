@@ -1,0 +1,6 @@
+#SetMemory	20=9F
+#SetMemory	21=AF
+#SetRegister	A=0F
+#SetRegister	X=AA
+#SetRegister	Y=BB
+#SetMemory	FF=20

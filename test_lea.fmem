@@ -1,0 +1,13 @@
+#SetMemory	20=BE
+#SetMemory	21=05
+#SetMemory	22=BE
+#SetMemory	23=FF
+#SetMemory	24=CC
+#SetMemory	25=02
+#SetMemory	26=DC
+#SetMemory	27=02
+
+#SetRegister	X=05
+#SetRegister	SP=0F
+
+#SetMemory	FF=20
