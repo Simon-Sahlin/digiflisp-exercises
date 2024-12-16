@@ -1,0 +1,16 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.3
+(c) GMV 1989-2023
+
+
+File: AddAndDisplay.lst
+00                      1. 		ORG	$00
+---- File: "AddAndDisplay.sflisp"
+FB                      2. dipSwitch_1:	EQU	$FB
+FC                      3. dipSwitch_2:	EQU	$FC
+FC                      4. hexDisplay:	EQU	$FC
+                        5. 
+20                      6. 		ORG	$20
+20 F1 FB                7. addAndDisplay:	LDA	dipSwitch_1
+22 A6 FC                8. 		ADDA	$FC
+24 E1 FC                9. 		STA	$FC
+26 33 20               10. 		JMP	addAndDisplay

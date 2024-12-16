@@ -1,0 +1,27 @@
+LED:	EQU	$FB
+	ORG	$20
+
+start:	LDSP	#$20
+	JSR	main
+	JMP	start
+
+main:	CLRA
+	LDA	#$01
+main_1:	STA	LED
+	ROLA
+	;JSR	delay
+	JMP	main_1
+
+delay:	PSHA
+	PSHC
+	LDA	#$FF
+delay_1:DECA
+	BNE	delay_1
+	PULC
+	PULA
+	RTS
+
+
+
+	ORG	$FF
+	FCB	start

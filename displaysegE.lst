@@ -1,0 +1,30 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.3
+(c) GMV 1989-2023
+
+
+File: displaysegE.lst
+FC                      1. DIPSWITCH:	EQU	$FC
+---- File: "displaysegE.sflisp"
+FB                      2. SEGMENT7:	EQU	$FB
+79                      3. SEG_ERROR:	EQU	$79
+                        4. 
+00                      5. 		ORG	$0
+00 3F 06 5B 4F 66 6D    6. seg_table:	FCB	$3F,$06,$5B,$4F,$66,$6D,$7D,$07,$7F,$6F
+     7D 07 7F 6F      
+0A                      7. 		
+20                      8. 		ORG	$20
+20 90 00                9. start:		LDX	#seg_table
+22 F1 FC               10. 		LDA	DIPSWITCH
+24 97 0A               11. 		CMPA	#$0A
+26 22 04               12. 		BMI	else_do
+28                     13. if_do:
+28 F0 79               14. 		LDA	#SEG_ERROR
+2A 33 2D               15. 		JMP	end_if
+2C                     16. else_do:
+2C F4                  17. 		LDA	A,X
+2D                     18. end_if:		
+2D E1 FB               19. 		STA	SEGMENT7
+2F 33 20               20. 		JMP	start
+                       21. 
+FF                     22. 		ORG	$FF
+FF 20                  23. 		FCB	start

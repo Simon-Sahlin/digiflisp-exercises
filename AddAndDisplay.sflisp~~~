@@ -1,0 +1,10 @@
+		ORG	$00
+dipSwitch_1:	EQU	$FB
+dipSwitch_2:	EQU	$FC
+hexDisplay:	EQU	$FC
+
+		ORG	$20
+addAndDisplay:	LDA	dipSwitch_1
+		ADDA	$FC
+		STA	$FC
+		JMP	addAndDisplay
