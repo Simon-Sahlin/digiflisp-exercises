@@ -1,0 +1,5 @@
+	ORG	$20
+	LDA	#$44
+loop:	SUBA	#1
+	STA	$5
+	BRA	loop
