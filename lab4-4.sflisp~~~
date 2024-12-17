@@ -11,6 +11,22 @@ DelayC2	EQU	$2		;Ändra dem eventuellt i labbet så att fördröjnigen blir rimligt 
 Main:
 	CLR	Utport
 	JSR	ReadAscii
+	SUBA	#$41
+;WIP UNDERSÖK HÄR
+	LSLA
+	PSHA
+	LDX	#MorseCode
+	LDA	A,X
+	STA	Count
+	PULA
+	INCA
+	LDA	A,X
+loop2:
+	JSR	BlinkLight
+	LSRA
+	DEC	Count
+	BNE	loop2
+
 	;LDA	Inport
 	;JSR	BlinkLight
 	BRA	Main
@@ -34,7 +50,7 @@ BlinkLight:
 	PSHA
 	CLR	Utport
 	DEC	Utport
-	ANDA	#%10000000
+	ANDA	#$80
 	BNE	if_do
 if_else:
 	JSR	Delay1s
