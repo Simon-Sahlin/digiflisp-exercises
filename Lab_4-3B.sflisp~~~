@@ -1,0 +1,42 @@
+OUTPORT:	EQU	$FB
+INPORT:		EQU	$FC
+
+		ORG	$0
+motor_states:	FCB	$05,$06,$0A,$09
+state_index	FCB	$00
+
+
+		ORG	$20
+start:		LDSP	#$20
+		JSR	main
+		JMP	start
+
+
+main:		LDX	#motor_states
+main_1:		JSR	delay
+		LDA	state_index
+		LDA	A,X
+		STA	OUTPORT
+		JSR	nextState
+		JMP	main_1
+		
+
+delay:		;PSHA
+		LDA	INPORT
+		INCA
+delay_1:	DECA
+		BNE	delay_1
+		;PULA
+		RTS
+
+
+nextState:	;PSHA
+		LDA	state_index
+		INCA
+		ANDA	#$03
+		STA	state_index
+		;PULA
+		RTS
+
+		ORG	$FF
+		FCB	start

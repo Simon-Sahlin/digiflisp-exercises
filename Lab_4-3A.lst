@@ -1,0 +1,21 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.3
+(c) GMV 1989-2023
+
+
+File: Lab_4-3A.lst
+FB                      1. OUTPORT:	EQU	$FB
+---- File: "Lab_4-3A.sflisp"
+                        2. 
+20                      3. 		ORG	$20
+20 F0 05                4. start:		LDA	#$05
+22 E1 FB                5. 		STA	OUTPORT
+24 F0 06                6. 		LDA	#$06
+26 E1 FB                7. 		STA	OUTPORT
+28 F0 0A                8. 		LDA	#$0A
+2A E1 FB                9. 		STA	OUTPORT
+2C F0 09               10. 		LDA	#$09
+2E E1 FB               11. 		STA	OUTPORT
+30 21 EE               12. 		BRA	start
+                       13. 
+FF                     14. 		ORG	$FF
+FF 20                  15. 		FCB	start

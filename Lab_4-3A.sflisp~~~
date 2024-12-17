@@ -1,0 +1,15 @@
+OUTPORT:	EQU	$FB
+
+		ORG	$20
+start:		LDA	#$05
+		STA	OUTPORT
+		LDA	#$06
+		STA	OUTPORT
+		LDA	#$0A
+		STA	OUTPORT
+		LDA	#$09
+		STA	OUTPORT
+		BRA	start
+
+		ORG	$FF
+		FCB	start
