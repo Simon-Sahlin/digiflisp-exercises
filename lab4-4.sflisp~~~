@@ -7,12 +7,15 @@ DelayC2	EQU	$2		;Ändra dem eventuellt i labbet så att fördröjnigen blir rimligt 
 	FCB	$20
 
 	ORG	$20
+start:	LDSP	#$20
+	JSR	main
+	JMP	start
 
-Main:
+main:
 	CLR	Utport
 	JSR	ReadAscii
 	SUBA	#$41
-;WIP UNDERSÖK HÄR
+	JSR	checkA
 	LSLA
 	PSHA
 	LDX	#MorseCode
@@ -23,13 +26,24 @@ Main:
 	LDA	A,X
 loop2:
 	JSR	BlinkLight
-	LSRA
+	LSLA
 	DEC	Count
-	BNE	loop2
+	BNE   	loop2
+	BRA	main
 
-	;LDA	Inport
-	;JSR	BlinkLight
-	BRA	Main
+
+checkA:	PSHA
+	BMI	error
+	SUBA	#$19
+	BGT	error
+	PULA
+	RTS
+error:	CLR	Utport
+	DEC	Utport
+	LDA	Inport
+	ANDA	#01
+	BNE	error
+	JMP	main
 
 
 ReadAscii:
@@ -50,17 +64,12 @@ BlinkLight:
 	PSHA
 	CLR	Utport
 	DEC	Utport
-	ANDA	#$80
-	BNE	if_do
-if_else:
+	TSTA
+	BGE	skip
 	JSR	Delay1s
-	BRA	if_done
-if_do:
-	LDA	#$04
-loop:	JSR	Delay1s
-	DECA
-	BNE	loop
-if_done:
+	JSR	Delay1s
+	JSR	Delay1s
+skip:	JSR	Delay1s
 	CLR 	Utport
 	PULA
 	RTS
